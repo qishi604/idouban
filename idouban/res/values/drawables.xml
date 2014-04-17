@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="transparent">#00000000</drawable>
+    <drawable name="translucence">#88000000</drawable>
+    
+    <drawable name="background_transparent">#00000000</drawable>
+    <drawable name="background_black">#000000</drawable>
+    <drawable name="background_dack">#333333</drawable>
+</resources>
