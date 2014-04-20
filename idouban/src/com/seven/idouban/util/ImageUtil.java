@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.seven.idouban.R;
 
 public class ImageUtil {
@@ -14,6 +15,8 @@ public class ImageUtil {
 	private static ImageLoader mImageLoader;
 
 	private static DisplayImageOptions mBigImageDisplayImageOptions;
+	
+	private static DisplayImageOptions mFadeInDisplayImageOptions;
 	
 	public static void init(Context context) {
 		initImageCache(context);
@@ -31,7 +34,11 @@ public class ImageUtil {
 				.cacheInMemory(true).cacheOnDisc(true).build();
 		
 		mBigImageDisplayImageOptions = new DisplayImageOptions.Builder()
-		.showImageOnFail(R.drawable.ic_launcher)
+		.cacheInMemory(true).cacheOnDisc(true).build();
+		
+		FadeInBitmapDisplayer fadeInBitmapDisplayer = new FadeInBitmapDisplayer(1000);
+		mFadeInDisplayImageOptions = new DisplayImageOptions.Builder()
+		.displayer(fadeInBitmapDisplayer)
 		.cacheInMemory(true).cacheOnDisc(true).build();
 
 		int memCacheSize = (int) Math.round(0.25 * Runtime.getRuntime()
@@ -62,6 +69,10 @@ public class ImageUtil {
 	 */
 	public static void loadImage(String url, ImageView imageView) {
 		mImageLoader.displayImage(url, imageView, mBigImageDisplayImageOptions);
+	}
+	
+	public static void loadFadeInImage(String url, ImageView imageView) {
+		mImageLoader.displayImage(url, imageView, mFadeInDisplayImageOptions);
 	}
 
 	public static void loadImage(String url, ImageView imageView,

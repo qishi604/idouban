@@ -39,8 +39,12 @@ public abstract class BaseFragment extends Fragment{
 		initialize();
 	}
 	
-	protected static void LoadThumb(String url, ImageView imageView) {
+	protected static void loadThumb(String url, ImageView imageView) {
 		ImageUtil.loadThumb(url, imageView);
+	}
+	
+	protected static void loadImage(String url, ImageView imageView) {
+		ImageUtil.loadImage(url, imageView);
 	}
 	
 	public void toast(String msg) {

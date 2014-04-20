@@ -2,13 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="@drawable/background_dack"
+    android:background="@drawable/background_black"
     >
+    
+    <ImageView 
+        android:id="@+id/mIvBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000"
+        />
 
-    <com.twotoasters.jazzylistview.JazzyListView
+    <com.seven.idouban.widget.LMListView
         android:id="@+id/mListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" 
+        android:listSelector="@drawable/transparent"
+        />
     
     <include layout="@layout/layout_loading" />
 

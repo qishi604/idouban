@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.common.util.JsonUtil;
+import com.common.util.Logs;
 import com.common.view.MyArrayAdapter;
 import com.common.view.ViewHolder;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -16,14 +18,15 @@ import com.seven.idouban.model.Image;
 import com.seven.idouban.model.movie.SubjectS;
 import com.seven.idouban.model.movie.SubjectsResponse;
 import com.seven.idouban.service.MTService;
-import com.twotoasters.jazzylistview.JazzyHelper;
-import com.twotoasters.jazzylistview.JazzyListView;
-import com.common.util.JsonUtil;
-import com.common.util.Logs;
+import com.seven.idouban.util.ImageUtil;
+import com.seven.idouban.widget.LMListView;
+import com.seven.idouban.widget.LMListView.OnLoadMoreListener;
 
 public class MovieFragment extends BaseListFragment {
 	
-	private JazzyListView mListView;
+	private LMListView mListView;
+	
+	private ImageView mIvBackground;
 	
 	private MtAdapter mAdapter;
 	
@@ -32,7 +35,7 @@ public class MovieFragment extends BaseListFragment {
 	private int mStart = 0;
 	
 	private int mTotal = 0;
-
+	
 	@Override
 	protected int getContentViewRes() {
 		return R.layout.fragment_movie;
@@ -41,19 +44,30 @@ public class MovieFragment extends BaseListFragment {
 	@Override
 	protected void findViews(View contentView) {
 		super.findViews(contentView);
-		mListView = (JazzyListView) contentView.findViewById(R.id.mListView);
-
+		mListView = (LMListView) contentView.findViewById(R.id.mListView);
+		mIvBackground = (ImageView) contentView.findViewById(R.id.mIvBackground);
 	}
 
 	@Override
 	protected void initialize() {
 		super.initialize();
-		mListView.setTransitionEffect(JazzyHelper.CARDS);
 		mAdapter = new MtAdapter(mContext);
 		mListView.setAdapter(mAdapter);
 		mService = MTService.getInstance();
 		
+		mListView.setOnLoadMoreListener(new OnLoadMoreListener() {
+			
+			@Override
+			public void onLoadMore() {
+				getData(mStart);
+			}
+		});
+		
 		getData(mStart);
+	}
+	
+	private void loadBackground(String path) {
+		ImageUtil.loadFadeInImage(path, mIvBackground);
 	}
 	
 	@Override
@@ -61,16 +75,22 @@ public class MovieFragment extends BaseListFragment {
 		getData(0);
 	}
 	
-	private void getData(int start) {
+	private void getData(final int start) {
 		if (0 != mTotal && start >= mTotal) {
 			return;
 		}
 		
-		mService.getTop250(start, 100, new TextHttpResponseHandler() {
+		mService.getTop250(start, 20, new TextHttpResponseHandler() {
 			
 			@Override
 			public void onStart() {
 				super.onStart();
+			}
+			
+			@Override
+			public void onFinish() {
+				super.onFinish();
+				mListView.onLoadFinish();
 			}
 			
 			@Override
@@ -89,8 +109,17 @@ public class MovieFragment extends BaseListFragment {
 							int end = response.start + response.count;
 							if (end < mTotal) {
 								mStart = end;
+							} else {
+								mListView.hideFooter();
 							}
-							mAdapter.addAll(response.subjects);
+							SubjectS[] subjectSs = response.subjects;
+							if (subjectSs.length > 0) {
+								loadBackground(subjectSs[0].images.large);
+								if (start == 0) {
+									mAdapter.clear();
+								}
+								mAdapter.addAll(subjectSs);
+							}
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -103,7 +132,9 @@ public class MovieFragment extends BaseListFragment {
 			public void onFailure(int statusCode, Header[] headers,
 					String responseString, Throwable throwable) {
 				toast(responseString);
-				mCenterLoading.showText("Error");
+				if (start == 0) {
+					mCenterLoading.showText("Error");
+				}
 			}
 		});
 	}
@@ -129,20 +160,29 @@ public class MovieFragment extends BaseListFragment {
 		
 		ImageView ivThumb;
 		TextView tvName;
+		TextView tvOriginalName;
+		TextView tvYear;
+		TextView tvRating;
 
 		public MTHolder(View convertView) {
 			super(convertView);
 			ivThumb = (ImageView) convertView.findViewById(R.id.ivThumb);
 			tvName = (TextView) convertView.findViewById(R.id.tvName);
+			tvOriginalName = (TextView) convertView.findViewById(R.id.tvOriginalName);
+			tvYear = (TextView) convertView.findViewById(R.id.tvYear);
+			tvRating = (TextView) convertView.findViewById(R.id.tvRating);
 		}
 
 		@Override
 		public void setData(SubjectS d) {
 			Image images = d.images;
 			if (null != images) {
-				LoadThumb(images.small, ivThumb);
+				loadThumb(images.small, ivThumb);
 			}
 			tvName.setText(d.title);
+			tvOriginalName.setText("原名：" + d.original_title);
+			tvYear.setText("年代：" + d.year);
+			tvRating.setText("评分：" + d.rating.average);
 		}
 	}
 
