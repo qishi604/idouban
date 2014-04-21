@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/mIvBackground"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:scaleType="centerCrop"
+        />
+
+    <uk.co.chrisjenx.paralloid.views.ParallaxScrollView
+        android:id="@+id/mScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:id="@+id/mVContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="320dp" >
+            <TextView 
+                android:layout_width="match_parent"
+            	android:layout_height="200dp"
+                android:background="#77000000"
+                />
+        </LinearLayout>
+    </uk.co.chrisjenx.paralloid.views.ParallaxScrollView>
+    
+    <include layout="@layout/layout_loading" android:visibility="gone"/>
+
+</RelativeLayout>

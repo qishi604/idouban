@@ -3,8 +3,10 @@ package com.seven.idouban.app.ui;
 import org.apache.http.Header;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +53,10 @@ public class MovieFragment extends BaseListFragment {
 	@Override
 	protected void initialize() {
 		super.initialize();
+		
+		View header = mInflater.inflate(R.layout.list_action_header, null);
+		mListView.addHeaderView(header);
+		
 		mAdapter = new MtAdapter(mContext);
 		mListView.setAdapter(mAdapter);
 		mService = MTService.getInstance();
@@ -183,7 +189,23 @@ public class MovieFragment extends BaseListFragment {
 			tvOriginalName.setText("原名：" + d.original_title);
 			tvYear.setText("年代：" + d.year);
 			tvRating.setText("评分：" + d.rating.average);
+			
+			mConvertView.setTag(R.id.data, d);
+			mConvertView.setOnClickListener(ITEMCLICKCLICKLISTENER);
+			
 		}
 	}
+	
+	private static OnClickListener ITEMCLICKCLICKLISTENER = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Context context = v.getContext();
+			SubjectS s = (SubjectS) v.getTag(R.id.data);
+			Intent intent = new Intent(context, MTDetailActivity.class);
+			intent.putExtra("subjectS", s);
+			context.startActivity(intent);
+		}
+	};
 
 }

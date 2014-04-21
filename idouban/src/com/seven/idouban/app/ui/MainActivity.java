@@ -1,18 +1,22 @@
 package com.seven.idouban.app.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.common.widget.Container;
 import com.seven.idouban.R;
 import com.seven.idouban.util.ImageUtil;
 import com.seven.idouban.view.TabsAdapter;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnClickListener {
 
 	private DrawerLayout mDrawerLayout;
 
@@ -21,6 +25,12 @@ public class MainActivity extends BaseActivity {
 	private Container mContainer;
 
 	private View mLeftDrawer;
+	
+	private View mVUser;
+	
+	private ImageView mIvAvatar;
+	
+	private TextView mTvUser;
 	
 	private TabsAdapter mAdapter;
 	
@@ -61,6 +71,7 @@ public class MainActivity extends BaseActivity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     	mLeftDrawer = findViewById(R.id.left_drawer);
     	mContainer = (Container) findViewById(R.id.fragment_container);
+    	mVUser = findViewById(R.id.mVUser);
 	}
 
 	@Override
@@ -77,6 +88,8 @@ public class MainActivity extends BaseActivity {
 		mAdapter = new TabsAdapter(this, mFragments);
 		
 		mContainer.setAdapter(mAdapter);
+		
+		mVUser.setOnClickListener(this);
 	}
 	
 	private void initImage() {
@@ -104,6 +117,30 @@ public class MainActivity extends BaseActivity {
             mDrawerToggle.onDrawerStateChanged(newState);
         }
     };
+    
+    public void onClick(View v) {
+    	switch (v.getId()) {
+		case R.id.mVUser:
+			Intent intent = new Intent(this, AuthActivity.class);
+			startActivity(intent);
+			break;
+
+		default:
+			break;
+		}
+    }
+    
+    @Override
+	public void onBackPressed() {
+		long delay = System.currentTimeMillis() - lastTime;
+		if (100 < delay && delay < 2000) {
+			 super.onBackPressed();
+		} else {
+			lastTime = System.currentTimeMillis();
+			toast(R.string.double_press_back_exit_msg);
+		}
+	}
+	private long lastTime = 0;
     
     protected void onDestroy() {
     	ImageUtil.clearCache();

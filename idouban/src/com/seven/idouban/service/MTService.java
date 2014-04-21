@@ -34,8 +34,6 @@ public final class MTService extends BaseService {
 	 */
 	public RequestHandle getMT(String id, AsyncHttpResponseHandler handler) {
 		String url = getUrl(URL_SUBJECT + id);
-		
-		
 		return get(url, null, handler);
 	}
 	

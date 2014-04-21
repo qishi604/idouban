@@ -7,6 +7,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.seven.idouban.R;
 
 public class ImageUtil {
@@ -73,6 +74,10 @@ public class ImageUtil {
 	
 	public static void loadFadeInImage(String url, ImageView imageView) {
 		mImageLoader.displayImage(url, imageView, mFadeInDisplayImageOptions);
+	}
+	
+	public static void loadFadeInImage(String url, ImageView imageView, ImageLoadingListener listener) {
+		mImageLoader.displayImage(url, imageView, mFadeInDisplayImageOptions, listener);
 	}
 
 	public static void loadImage(String url, ImageView imageView,

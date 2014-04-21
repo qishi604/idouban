@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -16,12 +16,28 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="Theme.OverlayActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="actionBarStyle">@style/TranslucentDarkActionBar</item>
+    </style>
+    
+    <style name="TranslucentDarkActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">#99000000</item>
+        <item name="titleTextStyle">@style/actionbarText_style</item>
+    </style>
+    
+    <style name="actionbarText_style" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/text_color_white</item>
+    </style>
 
     <style name="menu_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">52dp</item>
         <item name="android:background">@drawable/bg_menu_item</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textColor">@color/text_color_white</item>
         <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:gravity">center_vertical</item>
     </style>

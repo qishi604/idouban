@@ -1,26 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/left_drawer"
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:background="#eeeeee"
-        android:orientation="vertical"
-        >
-        <TextView 
-            style="@style/menu_item"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_drawer"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="left"
+    android:background="@drawable/translucence" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/actionbar_height"
+        android:orientation="vertical" >
+        <RelativeLayout 
+            android:id="@+id/mVUser"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="@drawable/bg_menu_item"
+            >
+            <ImageView 
+                android:id="@+id/mIvAvatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher"
+                android:layout_centerInParent="true"
+                />
+            <TextView 
+                android:id="@+id/mTvUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mIvAvatar"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:textColor="@color/text_color_white"
+                android:text="Seven"
+                />
+        </RelativeLayout>
+
+        <View style="@style/menu_item_line" />
+        
+        <TextView style="@style/menu_item" 
+            android:text="Movie"
             />
-        <View  style="@style/menu_item_line"/>
-        <TextView 
-            style="@style/menu_item"
-            />
-        <View  style="@style/menu_item_line"/>
-        <TextView 
-            style="@style/menu_item"
-            />
-        <View  style="@style/menu_item_line"/>
-        <TextView 
-            style="@style/menu_item"
-            />
-        <View  style="@style/menu_item_line"/>
-</LinearLayout>
+
+        <View style="@style/menu_item_line" />
+
+        <TextView style="@style/menu_item" />
+
+        <View style="@style/menu_item_line" />
+
+        <TextView style="@style/menu_item" />
+
+        <View style="@style/menu_item_line" />
+
+        <TextView style="@style/menu_item" />
+
+        <View style="@style/menu_item_line" />
+    </LinearLayout>
+
+</ScrollView>
