@@ -5,5 +5,5 @@
     
     <drawable name="background_transparent">#00000000</drawable>
     <drawable name="background_black">#000000</drawable>
-    <drawable name="background_dack">#333333</drawable>
+    <drawable name="background_dack">#444444</drawable>
 </resources>

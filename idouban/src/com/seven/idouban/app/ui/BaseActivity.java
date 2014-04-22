@@ -8,10 +8,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.ImageView;
 
 import com.common.util.AndroidUtil;
 import com.seven.idouban.R;
 import com.seven.idouban.app.background.AppExitReceiver;
+import com.seven.idouban.util.ImageUtil;
 
 /**
  * @author seven
@@ -103,6 +105,10 @@ public abstract class BaseActivity extends ActionBarActivity {
 		if (null != mProgressDialog) {
 			mProgressDialog.dismiss();
 		}
+	}
+	
+	protected static void loadThumb(String url, ImageView imageView) {
+		ImageUtil.loadThumb(url, imageView);
 	}
 	
 	private AppExitReceiver mAppExitReceiver = new AppExitReceiver() {

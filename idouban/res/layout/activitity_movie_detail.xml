@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/background_dack" >
 
     <ImageView
         android:id="@+id/mIvBackground"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop" />
 
     <uk.co.chrisjenx.paralloid.views.ParallaxScrollView
         android:id="@+id/mScrollView"
@@ -16,20 +16,88 @@
         android:layout_height="match_parent"
         android:fillViewport="true" >
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/mVContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:paddingTop="320dp" >
-            <TextView 
+
+            <LinearLayout
                 android:layout_width="match_parent"
-            	android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:background="#77000000"
-                />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingTop="@dimen/activity_horizontal_margin" 
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin" >
+
+                    <TextView
+                        android:id="@+id/mTvOriginalTitle"
+                        style="@style/Text_white" />
+
+                    <TextView
+                        android:id="@+id/mTvAka"
+                        style="@style/Text_white" />
+
+                    <TextView
+                        android:id="@+id/mTvGenres"
+                        style="@style/Text_white" />
+
+                    <TextView
+                        android:id="@+id/mTvCountries"
+                        style="@style/Text_white" />
+
+                    <TextView
+                        android:id="@+id/mTvYear"
+                        style="@style/Text_white" />
+
+                    <TextView
+                        android:id="@+id/mTvRating"
+                        style="@style/Text_white" />
+
+                    <TextView
+                        android:id="@+id/mTvSummary"
+                        style="@style/Text_white"
+                        android:textIsSelectable="true" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Text_white"
+                    android:paddingLeft="8dp"
+                    android:text="导演" />
+
+                <LinearLayout
+                    android:id="@+id/mLDirectors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Text_white"
+                    android:paddingLeft="8dp"
+                    android:text="演员" />
+
+                <LinearLayout
+                    android:id="@+id/mLCasts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
     </uk.co.chrisjenx.paralloid.views.ParallaxScrollView>
-    
-    <include layout="@layout/layout_loading" android:visibility="gone"/>
+
+    <include
+        layout="@layout/layout_loading"
+        android:visibility="gone" />
 
 </RelativeLayout>

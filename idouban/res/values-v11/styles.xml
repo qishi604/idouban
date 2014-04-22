@@ -10,7 +10,6 @@
     
     <style name="Theme.OverlayActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@android:color/black</item>
         <item name="android:actionBarStyle">@style/TranslucentDarkActionBar</item>
     </style>
     
